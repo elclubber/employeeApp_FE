@@ -1,21 +1,28 @@
-import { useState } from 'react';
+import useApi from '../hooks/useApi';
+import APIConstants from '../constants/APIConstants';
 
 function EmployeeList() {
-  const [employees, setEmployees] = useState([]);
+  const { data: employees, error, loading } = useApi(APIConstants.EMPLOYEE_LIST);
 
-  const deleteEmployee = (index) => {
-    const newEmployees = employees.filter((_, i) => i !== index);
-    setEmployees(newEmployees);
-  };
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  // Handle the case where employees are not available
+  if (!employees || employees.length === 0) {
+    return <div>No employees found.</div>;
+  }
 
   return (
     <div className="p-4">
       <h1 className="text-2xl mb-4">Employee List</h1>
       <ul>
-        {employees.map((employee, index) => (
-          <li key={index} className="flex justify-between items-center mb-2">
+        {employees.map((employee) => (
+          <li key={employee.id} className="flex justify-between items-center mb-2">
             <span>{employee.name}</span>
-            <button onClick={() => deleteEmployee(index)} className="text-red-500">
+            <button
+              onClick={() => console.log('Delete logic here')}
+              className="text-red-500"
+            >
               Delete
             </button>
           </li>

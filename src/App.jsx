@@ -1,16 +1,11 @@
-import { Routes, Route } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import EmployeeForm from './pages/EmployeeForm';
-import EmployeeList from './pages/EmployeeList';
+import router from './router';
 
-function App() {
+const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<LoginPage />} />
-      <Route path="/add-employee" element={<EmployeeForm />} />
-      <Route path="/employee-list" element={<EmployeeList />} />
-    </Routes>
+    <div className="min-h-screen bg-gray-100">
+      {router()}
+    </div>
   );
-}
+};
 
 export default App;
