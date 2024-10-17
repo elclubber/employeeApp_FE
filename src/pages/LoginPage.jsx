@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import APIConstants from '../constants/APIConstants'; // Ensure correct API URLs
+import APIConstants from '../constants/APIConstants';
 
 function LoginPage() {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -11,15 +11,17 @@ function LoginPage() {
     try {
       const response = await fetch(APIConstants.LOGIN, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials),
-        credentials: 'include', // Ensure cookies are sent
+        credentials: 'include',  // Include cookies in the request
       });
 
       if (!response.ok) throw new Error('Invalid credentials');
-      navigate('/employee-list'); // Navigate to the employee list on success
+      
+      // Save the authentication status in localStorage
+      localStorage.setItem('isAuthenticated', JSON.stringify(true));
+      
+      navigate('/employee-list');  // Redirect after login
     } catch (err) {
       setError(err.message);
     }
