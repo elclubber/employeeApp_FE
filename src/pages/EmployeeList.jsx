@@ -42,7 +42,7 @@ function EmployeeList() {
                 <h1 className="text-4xl font-bold mb-6 text-center">Employee List</h1>
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-2 mb-6 rounded shadow"
+                    className="bg-teal-700 hover:bg-teal-900 text-white px-6 py-2 mb-6 rounded shadow"
                 >
                     Add Employee
                 </button>

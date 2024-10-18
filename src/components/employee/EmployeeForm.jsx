@@ -48,7 +48,7 @@ const EmployeeForm = ({ closeModal }) => {
       <Button
         onClick={closeModal}
         label="Cancel"
-        className="bg-red-500 rounded-md hover:bg-red-600 text-white"
+        className="bg-orange-600 rounded-md hover:bg-orange-800 text-white"
       />
     </div>
   </div>

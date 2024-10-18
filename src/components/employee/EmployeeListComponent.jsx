@@ -16,7 +16,7 @@ const EmployeeListComponent = ({ employees, onDelete }) => {
             <h3 className="text-2xl font-semibold text-white">{employee.name}</h3>
             <button
               onClick={() => onDelete(employee.id)}
-              className="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-all duration-200 shadow-md"
+              className="bg-orange-700 hover:bg-orange-900 text-white px-4 py-2 rounded-md transition-all duration-200 shadow-md"
             >
               Delete
             </button>
