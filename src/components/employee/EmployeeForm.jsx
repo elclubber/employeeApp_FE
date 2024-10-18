@@ -29,25 +29,29 @@ const EmployeeForm = ({ closeModal }) => {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl mb-4">Add Employee</h2>
-      {EMPLOYEE_FORM_FIELDS.map((field) => (
-        <FormField
-          key={field.key}
-          field={field}
-          value={employee[field.key]}
-          onChange={handleInputChange}
-        />
-      ))}
-      <div className="flex space-x-2">
-        <Button
-          onClick={handleSubmit}
-          label="Submit"
-          className="bg-green-500 text-white"
-        />
-        <Button onClick={closeModal} label="Cancel" />
-      </div>
+    <div className="p-6 bg-gray-800 rounded-lg shadow-lg">
+    <h2 className="text-2xl font-bold mb-4 text-white">Add Employee</h2>
+    {EMPLOYEE_FORM_FIELDS.map((field) => (
+      <FormField
+        key={field.key}
+        field={field}
+        value={employee[field.key]}
+        onChange={handleInputChange}
+      />
+    ))}
+    <div className="flex justify-end space-x-2 mt-4">
+      <Button
+        onClick={handleSubmit}
+        label="Submit"
+        className="bg-green-500 rounded-md hover:bg-green-600 text-white"
+      />
+      <Button
+        onClick={closeModal}
+        label="Cancel"
+        className="bg-red-500 rounded-md hover:bg-red-600 text-white"
+      />
     </div>
+  </div>
   );
 };
 

@@ -33,15 +33,14 @@ const TopMenu = () => {
   };
 
   return (
-    <div className="flex justify-between items-center p-4 bg-blue-600 text-white">
-      <div className="text-xl">Welcome, {username || 'User'}!</div>
-      <button
-        onClick={handleLogout}
-        className="bg-red-500 px-4 py-2 rounded text-white hover:bg-red-700"
-      >
-        Logout
-      </button>
-    </div>
+        <nav className="bg-cyan-800 p-4">
+        <div className="container mx-auto flex justify-between items-center">
+          <h1 className="text-white text-2xl font-bold">Welcome, {username || 'User'}!</h1>
+          <button onClick={handleLogout} className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded">
+            Logout
+          </button>
+        </div>
+      </nav>
   );
 };
 
