@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const EmployeeListComponent = ({ employees, onDelete }) => {
     if (!employees || employees.length === 0) {
       return <div>No employees found.</div>;
@@ -19,6 +21,15 @@ const EmployeeListComponent = ({ employees, onDelete }) => {
       </ul>
     );
   };
-  
-  export default EmployeeListComponent;
-  
+
+EmployeeListComponent.propTypes = {
+  employees: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
+
+export default EmployeeListComponent;  

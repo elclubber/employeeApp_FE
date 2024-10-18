@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const EmployeeForm = ({ closeModal }) => {
   const [employee, setEmployee] = useState({ name: '', email: '', position: '' });
@@ -50,6 +51,10 @@ const EmployeeForm = ({ closeModal }) => {
       </button>
     </div>
   );
+};
+
+EmployeeForm.propTypes = {
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default EmployeeForm;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchEmployeesStart } from '../store/slices/employeeSlice';
+import { FETCH_EMPLOYEES_START, ADD_EMPLOYEE, DELETE_EMPLOYEE } from '../constants/actionTypes';  // Import constants
 import {
     selectEmployees,
     selectEmployeeLoading,
@@ -17,17 +17,18 @@ function EmployeeList() {
     const error = useSelector(selectEmployeeError);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    // Fetch employees when component mounts
     useEffect(() => {
-        dispatch(fetchEmployeesStart());
+        dispatch({ type: FETCH_EMPLOYEES_START });
     }, [dispatch]);
 
     const handleAddEmployee = (employee) => {
-        dispatch({ type: 'employee/addEmployee', payload: employee });
+        dispatch({ type: ADD_EMPLOYEE, payload: employee });
         setIsModalOpen(false);
     };
 
     const handleDelete = (id) => {
-        dispatch({ type: 'employee/deleteEmployee', payload: id });
+        dispatch({ type: DELETE_EMPLOYEE, payload: id });
     };
 
     if (loading) return <div>Loading...</div>;
