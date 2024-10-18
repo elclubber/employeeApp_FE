@@ -6,9 +6,9 @@ import {
     selectEmployeeLoading,
     selectEmployeeError,
 } from '../store/selectors/employeeSelector';
-import EmployeeListComponent from '../components/EmployeeListComponent';
+import EmployeeListComponent from '../components/employee/EmployeeListComponent';
 import TopMenu from '../components/TopMenu';
-import EmployeeForm from '../components/EmployeeForm';
+import EmployeeForm from '../components/employee/EmployeeForm';
 
 function EmployeeList() {
     const dispatch = useDispatch();

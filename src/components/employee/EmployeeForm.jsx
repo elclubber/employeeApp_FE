@@ -2,15 +2,25 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Input from './Input';
-import Button from './Button';
-import { ADD_EMPLOYEE } from '../constants/actionTypes';
-import { EMPLOYEE_FORM_FIELDS } from '../constants/formConstants';
+import Button from '../form/Button';
+import FormField from '../form/FormField';
+import { ADD_EMPLOYEE } from '../../constants/actionTypes';
+import { EMPLOYEE_FORM_FIELDS } from '../../constants/formConstants';
 
 const EmployeeForm = ({ closeModal }) => {
-  const [employee, setEmployee] = useState({ name: '', email: '', position: '' });
+  const [employee, setEmployee] = useState(
+    EMPLOYEE_FORM_FIELDS.reduce((acc, field) => {
+      acc[field.key] = '';
+      return acc;
+    }, {})
+  );
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleInputChange = (key, value) => {
+    setEmployee((prevState) => ({ ...prevState, [key]: value }));
+  };
 
   const handleSubmit = () => {
     dispatch({ type: ADD_EMPLOYEE, payload: employee });
@@ -22,14 +32,11 @@ const EmployeeForm = ({ closeModal }) => {
     <div className="p-4">
       <h2 className="text-xl mb-4">Add Employee</h2>
       {EMPLOYEE_FORM_FIELDS.map((field) => (
-        <Input
+        <FormField
           key={field.key}
-          type={field.type}
-          placeholder={field.placeholder}
+          field={field}
           value={employee[field.key]}
-          onChange={(e) =>
-            setEmployee({ ...employee, [field.key]: e.target.value })
-          }
+          onChange={handleInputChange}
         />
       ))}
       <div className="flex space-x-2">
@@ -38,7 +45,7 @@ const EmployeeForm = ({ closeModal }) => {
           label="Submit"
           className="bg-green-500 text-white"
         />
-        <Button onClick={closeModal} label="Cancel" className="bg-gray-500 text-white"/>
+        <Button onClick={closeModal} label="Cancel" />
       </div>
     </div>
   );
