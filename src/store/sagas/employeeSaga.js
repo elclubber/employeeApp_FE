@@ -1,72 +1,56 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import APIConstants from '../../constants/APIConstants';
 import {
-    fetchEmployeesStart,
-    fetchEmployeesSuccess,
-    fetchEmployeesFailure,
-    addEmployeeSuccess,
-    deleteEmployeeSuccess,
+  FETCH_EMPLOYEES_START,
+  ADD_EMPLOYEE,
+  DELETE_EMPLOYEE,
+} from '../../constants/actionTypes';
+import {
+  fetchEmployeesSuccess,
+  fetchEmployeesFailure,
+  addEmployeeSuccess,
+  deleteEmployeeSuccess,
 } from '../slices/employeeSlice';
+import {
+  fetchEmployeesAPI,
+  addEmployeeAPI,
+  deleteEmployeeAPI,
+} from '../../helpers/apiHelpers';
 
-// API call helpers
-const fetchEmployeesAPI = async () => {
-    const response = await fetch(APIConstants.EMPLOYEE_LIST);
-    return response.json();
-};
-
-const addEmployeeAPI = async (employee) => {
-    const response = await fetch(APIConstants.ADD_EMPLOYEE, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(employee),
-    });
-    return response.json();
-};
-
-const deleteEmployeeAPI = async (id) => {
-    const response = await fetch(`${APIConstants.DELETE_EMPLOYEE}/${id}`, {
-        method: 'DELETE',
-    });
-
-    if (!response.ok) {
-        throw new Error('Failed to delete employee');
-    }
-};
-
-// Sagas
+// Fetch Employees Saga
 function* fetchEmployeesSaga() {
-    try {
-        const employees = yield call(fetchEmployeesAPI);
-        yield put(fetchEmployeesSuccess(employees));
-    } catch (error) {
-        yield put(fetchEmployeesFailure(error.message));
-    }
+  try {
+    const employees = yield call(fetchEmployeesAPI);
+    yield put(fetchEmployeesSuccess(employees));
+  } catch (error) {
+    yield put(fetchEmployeesFailure(error.message));
+  }
 }
 
+// Add Employee Saga
 function* addEmployeeSaga(action) {
-    try {
-        const newEmployee = yield call(addEmployeeAPI, action.payload);
-        yield put(addEmployeeSuccess(newEmployee));
-
-        // Fetch the updated list of employees immediately after adding
-        yield put(fetchEmployeesStart());  // Dispatch to re-fetch the employee list
-    } catch (error) {
-        console.error('Failed to add employee:', error);
-    }
+  try {
+    const newEmployee = yield call(addEmployeeAPI, action.payload);
+    yield put(addEmployeeSuccess(newEmployee));
+    yield put({ type: FETCH_EMPLOYEES_START });  // Re-fetch employees
+  } catch (error) {
+    console.error('Failed to add employee:', error);
+  }
 }
 
-export function* employeeSaga() {
-    yield takeEvery('employee/fetchEmployeesStart', fetchEmployeesSaga);
-    yield takeEvery('employee/addEmployee', addEmployeeSaga);
-    yield takeEvery('employee/deleteEmployee', function* (action) {
-        try {
-            yield call(deleteEmployeeAPI, action.payload);
-            yield put(deleteEmployeeSuccess(action.payload));
+// Delete Employee Saga
+function* deleteEmployeeSaga(action) {
+  try {
+    yield call(deleteEmployeeAPI, action.payload);
+    yield put(deleteEmployeeSuccess(action.payload));
+    yield put({ type: FETCH_EMPLOYEES_START });  // Re-fetch employees
+  } catch (error) {
+    console.error('Failed to delete employee:', error);
+  }
+}
 
-            // Fetch updated list after deletion
-            yield put(fetchEmployeesStart());
-        } catch (error) {
-            console.error('Failed to delete employee:', error);
-        }
-    });
+// Employee Saga Watchers
+export function* employeeSaga() {
+  yield takeEvery(FETCH_EMPLOYEES_START, fetchEmployeesSaga);
+  yield takeEvery(ADD_EMPLOYEE, addEmployeeSaga);
+  yield takeEvery(DELETE_EMPLOYEE, deleteEmployeeSaga);
 }
