@@ -1,10 +1,10 @@
 import { all } from 'redux-saga/effects';
+import { authSaga } from './authSagas';
 import { employeeSaga } from './employeeSaga';
 
-// Combine all sagas
 export default function* rootSaga() {
     yield all([
-        employeeSaga(),
-        // Add other sagas here if needed
+        authSaga(),  // Include the auth saga
+        employeeSaga(),  // Include the employee saga
     ]);
 }

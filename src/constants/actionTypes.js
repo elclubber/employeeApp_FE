@@ -1,3 +1,7 @@
+// Auth Action Types
+export const LOGIN = 'auth/login';
+export const LOGOUT = 'auth/logout';
+
 // Employee Action Types
 export const FETCH_EMPLOYEES_START = 'employee/fetchEmployeesStart';
 export const FETCH_EMPLOYEES_SUCCESS = 'employee/fetchEmployeesSuccess';

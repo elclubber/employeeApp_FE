@@ -31,7 +31,7 @@ function* addEmployeeSaga(action) {
   try {
     const newEmployee = yield call(addEmployeeAPI, action.payload);
     yield put(addEmployeeSuccess(newEmployee));
-    yield put({ type: FETCH_EMPLOYEES_START });  // Re-fetch employees
+    yield put({ type: FETCH_EMPLOYEES_START });
   } catch (error) {
     console.error('Failed to add employee:', error);
   }
