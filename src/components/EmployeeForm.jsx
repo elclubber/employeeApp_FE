@@ -1,26 +1,21 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import APIConstants from '../constants/APIConstants';
 
 const EmployeeForm = ({ closeModal }) => {
   const [employee, setEmployee] = useState({ name: '', email: '', position: '' });
-  const navigate = useNavigate();
+  const dispatch = useDispatch();  // Initialize dispatch
+  const navigate = useNavigate();  // Initialize navigate
 
-  const handleSubmit = async () => {
-    try {
-      const response = await fetch(APIConstants.ADD_EMPLOYEE, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(employee),
-      });
+  const handleSubmit = () => {
+    dispatch({
+      type: 'employee/addEmployee',  // Dispatch the saga action
+      payload: employee,
+    });
 
-      if (!response.ok) throw new Error('Failed to add employee');
-      alert('Employee added successfully!');
-      closeModal();  // Close the modal after successful submission
-      navigate('/employee-list');  // Redirect to the employee list
-    } catch (err) {
-      alert(err.message);
-    }
+    // Close the modal and redirect after adding employee
+    closeModal();
+    navigate('/employee-list');  
   };
 
   return (
