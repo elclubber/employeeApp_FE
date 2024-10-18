@@ -1,27 +1,24 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import APIConstants from '../constants/APIConstants';
+import { selectIsAuthenticated } from '../store/selectors/authSelector'; // Import selector
 
 const LogoutButton = ({ className }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isAuthenticated = useSelector(selectIsAuthenticated); // Use selector
 
-  const handleLogout = async () => {
-    try {
-      const response = await fetch(APIConstants.LOGOUT, {
-        method: 'POST',
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        // Clear local storage and navigate to login page
-        localStorage.removeItem('isAuthenticated');
-        localStorage.removeItem('username');
-        navigate('/');
-      }
-    } catch (err) {
-      console.error('Logout failed:', err);
-    }
+  const handleLogout = () => {
+    dispatch({ type: 'auth/logout' }); // Dispatch logout action
   };
+
+  // Navigate to login page if the user is logged out
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/'); // Navigate to the login page
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <button
@@ -36,4 +33,5 @@ const LogoutButton = ({ className }) => {
 LogoutButton.propTypes = {
   className: PropTypes.string,
 };
+
 export default LogoutButton;

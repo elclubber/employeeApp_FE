@@ -38,8 +38,7 @@ function EmployeeList() {
     return (
         <div className="min-h-screen bg-gray-900 text-white">
             <TopMenu />
-            <div className="container mx-auto p-6">
-                <h1 className="text-4xl font-bold mb-6 text-center">Employee List</h1>
+            <div className="container mx-auto p-6 pt-24">
                 <button
                     onClick={() => setIsModalOpen(true)}
                     className="bg-teal-700 hover:bg-teal-900 text-white px-6 py-2 mb-6 rounded shadow"
