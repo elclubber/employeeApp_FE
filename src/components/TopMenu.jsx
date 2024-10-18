@@ -16,8 +16,8 @@ const TopMenu = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(APIConstants.LOGIN.replace('/login', '/logout'), {
-        method: 'GET',
+      const response = await fetch(APIConstants.LOGOUT, {
+        method: 'POST',
         credentials: 'include',
       });
 
