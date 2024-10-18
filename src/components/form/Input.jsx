@@ -4,7 +4,7 @@ const Input = ({ type, placeholder, value, onChange }) => (
   <input
     type={type}
     placeholder={placeholder}
-    className="w-full p-2 border mb-2"
+    className="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-cyan-500"
     value={value}
     onChange={onChange}
   />

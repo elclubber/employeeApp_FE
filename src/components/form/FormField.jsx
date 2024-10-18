@@ -6,13 +6,13 @@ const FormField = ({ field, value, onChange }) => {
     return (
       <select
         key={field.key}
-        className="w-full p-2 border mb-2"
+        className="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-cyan-500"
         value={value}
         onChange={(e) => onChange(field.key, e.target.value)}
       >
-        <option value="">{field.placeholder}</option>
+        <option value="" className="text-gray-400">{field.placeholder}</option>
         {field.options.map((option) => (
-          <option key={option} value={option}>
+          <option key={option} value={option} className="text-black">
             {option}
           </option>
         ))}
