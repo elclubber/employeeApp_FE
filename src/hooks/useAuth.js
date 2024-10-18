@@ -1,38 +1,18 @@
-import { useEffect, useState } from 'react';
-import APIConstants from '../constants/APIConstants';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, logout } from '../store/slices/authSlice';
 
 const useAuth = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(
-        JSON.parse(localStorage.getItem('isAuthenticated')) || false  // Retrieve from localStorage
-    );
+  const isAuthenticated = useSelector((state) => !!state.auth.isAuthenticated);  // Ensure boolean value
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        const checkAuthStatus = async () => {
-            try {
-                const response = await fetch(APIConstants.LOGIN.replace('/login', '/check-auth'), {
-                    method: 'GET',
-                    credentials: 'include',  // Ensure cookies are included
-                });
+  const handleLogin = () => dispatch(login());
+  const handleLogout = () => dispatch(logout());
 
-                const result = await response.json();
-                if (result.loggedIn) {
-                    setIsAuthenticated(true);
-                    localStorage.setItem('isAuthenticated', JSON.stringify(true));  // Save to localStorage
-                } else {
-                    setIsAuthenticated(false);
-                    localStorage.removeItem('isAuthenticated');  // Remove from localStorage if not authenticated
-                }
-            } catch (err) {
-                console.error('Authentication check failed:', err);
-                setIsAuthenticated(false);
-                localStorage.removeItem('isAuthenticated');  // Handle errors by clearing auth state
-            }
-        };
-
-        checkAuthStatus();
-    }, []);
-
-    return isAuthenticated;
+  return {
+    isAuthenticated,  // Boolean value
+    handleLogin,
+    handleLogout
+  };
 };
 
 export default useAuth;
