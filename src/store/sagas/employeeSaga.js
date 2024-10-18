@@ -1,12 +1,11 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import APIConstants from '../constants/APIConstants';
+import APIConstants from '../../constants/APIConstants';
 import {
-    fetchEmployeesStart,
     fetchEmployeesSuccess,
     fetchEmployeesFailure,
     addEmployeeSuccess,
     deleteEmployeeSuccess,
-} from './employeeSlice';
+} from '../slices/employeeSlice';
 
 // API call helpers
 const fetchEmployeesAPI = async () => {
@@ -29,10 +28,9 @@ const deleteEmployeeAPI = async (id) => {
     });
 };
 
-// Sagas
+// Employee Sagas
 function* fetchEmployeesSaga() {
     try {
-        yield put(fetchEmployeesStart());
         const employees = yield call(fetchEmployeesAPI);
         yield put(fetchEmployeesSuccess(employees));
     } catch (error) {
@@ -58,7 +56,7 @@ function* deleteEmployeeSaga(action) {
     }
 }
 
-export default function* rootSaga() {
+export function* employeeSaga() {
     yield takeEvery('employee/fetchEmployeesStart', fetchEmployeesSaga);
     yield takeEvery('employee/addEmployee', addEmployeeSaga);
     yield takeEvery('employee/deleteEmployee', deleteEmployeeSaga);
