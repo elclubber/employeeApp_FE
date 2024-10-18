@@ -5,7 +5,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import useAuth from './hooks/useAuth';
 
 const RouterComponent = () => {
-  const isAuthenticated = useAuth();  // Check if the user is authenticated
+  const { isAuthenticated } = useAuth();
 
   return (
     <Routes>
@@ -18,7 +18,7 @@ const RouterComponent = () => {
           </ProtectedRoute>
         }
       />
-      <Route path="*" element={<Navigate to="/" />} />  {/* Handle unknown routes */}
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 };
