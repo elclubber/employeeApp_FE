@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
-import EmployeeForm from './pages/EmployeeForm';
 import EmployeeList from './pages/EmployeeList';
+import EmployeeForm from './components/EmployeeForm';  // Import from components
 import ProtectedRoute from './components/ProtectedRoute';
 import useAuth from './hooks/useAuth';
 
@@ -11,14 +11,6 @@ const RouterComponent = () => {
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
-      <Route
-        path="/add-employee"
-        element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
-            <EmployeeForm />
-          </ProtectedRoute>
-        }
-      />
       <Route
         path="/employee-list"
         element={
