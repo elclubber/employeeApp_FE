@@ -23,6 +23,16 @@ const addEmployeeAPI = async (employee) => {
     return response.json();
 };
 
+const deleteEmployeeAPI = async (id) => {
+    const response = await fetch(`${APIConstants.DELETE_EMPLOYEE}/${id}`, {
+        method: 'DELETE',
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to delete employee');
+    }
+};
+
 // Sagas
 function* fetchEmployeesSaga() {
     try {
@@ -50,7 +60,7 @@ export function* employeeSaga() {
     yield takeEvery('employee/addEmployee', addEmployeeSaga);
     yield takeEvery('employee/deleteEmployee', function* (action) {
         try {
-            // yield call(deleteEmployeeAPI, action.payload);
+            yield call(deleteEmployeeAPI, action.payload);
             yield put(deleteEmployeeSuccess(action.payload));
 
             // Fetch updated list after deletion
