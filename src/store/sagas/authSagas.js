@@ -14,23 +14,23 @@ const loginAPI = async (credentials) => {
   if (!response.ok) {
     throw new Error('Invalid credentials');
   }
-  return response.json(); // Assume it returns { username: '...' }
+  return response.json();
 };
 
 // Saga to handle login
 function* handleLogin(action) {
   try {
-    const { username } = yield call(loginAPI, action.payload); // Call login API
-    yield put(loginSuccess(username)); // Update Redux state with username
+    const { username } = yield call(loginAPI, action.payload);
+    yield put(loginSuccess(username));
   } catch (error) {
-    yield put(loginFailure(error.message)); // Handle login failure
+    yield put(loginFailure(error.message));
   }
 }
 
 // Saga to handle logout
 function* handleLogout() {
   try {
-    yield put(logoutSuccess()); // Reset auth state
+    yield put(logoutSuccess());
   } catch (error) {
     console.error('Logout failed:', error);
   }

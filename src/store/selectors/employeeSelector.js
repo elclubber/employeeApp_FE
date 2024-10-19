@@ -2,7 +2,7 @@
 export const selectEmployees = (state) => state.employee.employees;
 
 // Selector to get loading state
-export const selectEmployeeLoading = (state) => state.employee.loading;
+export const selectEmployeeIsLoading = (state) => state.employee.isLoading;
 
 // Selector to get error state
 export const selectEmployeeError = (state) => state.employee.error;

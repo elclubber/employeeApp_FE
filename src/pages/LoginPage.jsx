@@ -1,31 +1,32 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { selectIsAuthenticated, selectAuthError } from '../store/selectors/authSelector'; // Import selectors
+import { selectIsAuthenticated, selectAuthError } from '../store/selectors/authSelector'; 
+import logo from '../assets/logo-novity-login.png';
 
 function LoginPage() {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isAuthenticated = useSelector(selectIsAuthenticated); // Use selector
-  const error = useSelector(selectAuthError); // Use selector
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const error = useSelector(selectAuthError);
 
   const handleLogin = () => {
-    dispatch({ type: 'auth/login', payload: credentials }); // Dispatch login action
+    dispatch({ type: 'auth/login', payload: credentials });
   };
 
-  // Redirect to employee list if authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/employee-list'); // Redirect on successful login
+      navigate('/employee-list');
     }
   }, [isAuthenticated, navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 space-y-6">
+      <img src={logo} alt="Logo" className="h-24 mb-4" />
       <div className="w-full max-w-sm bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center text-white mb-6">Login</h2>
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <input
           type="text"
           placeholder="Username"

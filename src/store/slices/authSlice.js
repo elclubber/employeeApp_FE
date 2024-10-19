@@ -4,19 +4,22 @@ import { createSlice } from '@reduxjs/toolkit';
 const loadAuthState = () => {
   const isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated')) || false;
   const username = localStorage.getItem('username') || '';
-  return { isAuthenticated, username, error: null };
+  return { isAuthenticated, username, isLoading: false, error: null };
 };
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: loadAuthState(),  // Load state from localStorage
+  initialState: loadAuthState(),
   reducers: {
+    loginStart: (state) => {
+      state.isLoading = true;
+    },
     loginSuccess: (state, action) => {
       state.isAuthenticated = true;
       state.username = action.payload;
+      state.isLoading = false;
       state.error = null;
 
-      // Save to localStorage
       localStorage.setItem('isAuthenticated', 'true');
       localStorage.setItem('username', action.payload);
     },
@@ -24,21 +27,23 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.username = '';
       state.error = action.payload;
+      state.isLoading = false;
 
-      // Clear localStorage on login failure
       localStorage.removeItem('isAuthenticated');
       localStorage.removeItem('username');
+    },
+    logoutStart: (state) => {
+      state.isLoading = true;
     },
     logoutSuccess: (state) => {
       state.isAuthenticated = false;
       state.username = '';
-
-      // Clear localStorage on logout
+      state.isLoading = false;
       localStorage.removeItem('isAuthenticated');
       localStorage.removeItem('username');
     },
   },
 });
 
-export const { loginSuccess, loginFailure, logoutSuccess } = authSlice.actions;
+export const { loginSuccess, loginFailure, logoutSuccess, loginStart, logoutStart } = authSlice.actions;
 export default authSlice.reducer;

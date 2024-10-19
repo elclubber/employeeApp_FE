@@ -6,3 +6,6 @@ export const selectUsername = (state) => state.auth.username;
 
 // Selector to get the error message, if any
 export const selectAuthError = (state) => state.auth.error;
+
+// Selector to get the loading status
+export const selectIsAuthLoading = (state) => state.auth.isLoading;
