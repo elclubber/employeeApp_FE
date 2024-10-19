@@ -5,9 +5,12 @@ import {
   DELETE_EMPLOYEE,
 } from '../../constants/actionTypes';
 import {
+  getEmployeesStart,
   fetchEmployeesSuccess,
   fetchEmployeesFailure,
+  addEmployeeStart,
   addEmployeeSuccess,
+  deleteEmployeeStart,
   deleteEmployeeSuccess,
 } from '../slices/employeeSlice';
 import {
@@ -19,6 +22,7 @@ import {
 // Fetch Employees Saga
 function* fetchEmployeesSaga() {
   try {
+    yield put(getEmployeesStart());
     const employees = yield call(fetchEmployeesAPI);
     yield put(fetchEmployeesSuccess(employees));
   } catch (error) {
@@ -29,6 +33,7 @@ function* fetchEmployeesSaga() {
 // Add Employee Saga
 function* addEmployeeSaga(action) {
   try {
+    yield put(addEmployeeStart());
     const newEmployee = yield call(addEmployeeAPI, action.payload);
     yield put(addEmployeeSuccess(newEmployee));
     yield put({ type: FETCH_EMPLOYEES_START });
@@ -40,6 +45,7 @@ function* addEmployeeSaga(action) {
 // Delete Employee Saga
 function* deleteEmployeeSaga(action) {
   try {
+    yield put(deleteEmployeeStart());
     yield call(deleteEmployeeAPI, action.payload);
     yield put(deleteEmployeeSuccess(action.payload));
     yield put({ type: FETCH_EMPLOYEES_START });  // Re-fetch employees

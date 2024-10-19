@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FETCH_EMPLOYEES_START, ADD_EMPLOYEE, DELETE_EMPLOYEE } from '../constants/actionTypes';
 import {
     selectEmployees,
-    selectEmployeeLoading,
     selectEmployeeError,
 } from '../store/selectors/employeeSelector';
 import EmployeeListComponent from '../components/employee/EmployeeListComponent';
@@ -14,7 +13,6 @@ import Modal from '../components/Modal';  // Import the Modal component
 function EmployeeList() {
     const dispatch = useDispatch();
     const employees = useSelector(selectEmployees);
-    const loading = useSelector(selectEmployeeLoading);
     const error = useSelector(selectEmployeeError);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -32,7 +30,6 @@ function EmployeeList() {
         dispatch({ type: DELETE_EMPLOYEE, payload: id });
     };
 
-    if (loading) return <div className="text-white text-center p-6">Loading...</div>;
     if (error) return <div className="text-red-500 text-center p-6">Error: {error}</div>;
 
     return (
