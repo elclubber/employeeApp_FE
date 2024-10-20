@@ -3,7 +3,7 @@ import {
   FETCH_EMPLOYEES_START,
   ADD_EMPLOYEE,
   DELETE_EMPLOYEE,
-} from '../../constants/actionTypes';
+} from '../../constants/ActionTypesConstants';
 import {
   getEmployeesStart,
   fetchEmployeesSuccess,
@@ -19,12 +19,15 @@ import {
   deleteEmployeeAPI,
 } from '../../helpers/apiHelpers';
 
+import { formatEmployees } from '../../helpers/dataFormatterHelper';
+
 // Fetch Employees Saga
 function* fetchEmployeesSaga() {
   try {
     yield put(getEmployeesStart());
     const employees = yield call(fetchEmployeesAPI);
-    yield put(fetchEmployeesSuccess(employees));
+    const formattedEmployees = formatEmployees(employees);
+    yield put(fetchEmployeesSuccess(formattedEmployees));
   } catch (error) {
     yield put(fetchEmployeesFailure(error.message));
   }

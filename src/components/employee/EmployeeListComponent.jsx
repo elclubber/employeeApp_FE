@@ -12,6 +12,13 @@ const EmployeeListComponent = ({ employees, onDelete }) => {
           key={employee.id} 
           className="p-6 border border-gray-700 rounded-lg shadow-lg bg-gray-800"
         >
+                    {employee.image && (
+            <img
+              src={employee.image}
+              alt={`${employee.name}'s profile`}
+              className="w-16 h-16 mr-4 rounded-full"
+            />
+          )}
           <div className="flex justify-between items-center">
             <h3 className="text-2xl font-semibold text-white">{employee.name}</h3>
             <button

@@ -2,21 +2,22 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { selectIsAuthenticated } from '../store/selectors/authSelector'; // Import selector
+import { selectIsAuthenticated } from '../store/selectors/authSelector';
+import { LOGOUT } from '../constants/ActionTypesConstants';
+import { ROUTE_PATHS } from '../constants/AppConstants';
 
 const LogoutButton = ({ className }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isAuthenticated = useSelector(selectIsAuthenticated); // Use selector
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   const handleLogout = () => {
-    dispatch({ type: 'auth/logout' }); // Dispatch logout action
+    dispatch({ type: LOGOUT });
   };
 
-  // Navigate to login page if the user is logged out
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/'); // Navigate to the login page
+      navigate(ROUTE_PATHS.HOME);
     }
   }, [isAuthenticated, navigate]);
 
