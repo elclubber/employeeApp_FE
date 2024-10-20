@@ -26,7 +26,7 @@ const FormField = ({ field, value, onChange }) => {
       type={field.type}
       placeholder={field.placeholder}
       value={value}
-      onChange={(e) => onChange(field.key, e.target.value)}
+      onChange={(e) => onChange(field.key, e.target.value, e)}
     />
   );
 };

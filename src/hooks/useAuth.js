@@ -5,7 +5,7 @@ const useAuth = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
 
-  const handleLogout = () => dispatch(logoutSuccess());  // Dispatch logoutSuccess
+  const handleLogout = () => dispatch(logoutSuccess());
 
   return { isAuthenticated, handleLogout };
 };

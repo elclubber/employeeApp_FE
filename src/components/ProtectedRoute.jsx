@@ -1,13 +1,12 @@
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { ROUTE_PATHS } from '../constants/AppConstants';
 
 const ProtectedRoute = ({ isAuthenticated, children }) => {
   if (!isAuthenticated) {
-    // Redirect to login if the user is not authenticated
-    return <Navigate to="/" />;
+    return <Navigate to={ROUTE_PATHS.HOME} />;
   }
 
-  // Render the child components if authenticated
   return children;
 };
 

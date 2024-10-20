@@ -10,4 +10,5 @@ export const EMPLOYEE_FORM_FIELDS = [
     { type: 'number', placeholder: 'Salary', key: 'salary' },
     { type: 'select', placeholder: 'Marital Status', key: 'maritalStatus', options: ['Single', 'Married', 'Divorced', 'Widowed'] },
     { type: 'select', placeholder: 'Employee Type', key: 'employeeType', options: ['Full-Time', 'Part-Time', 'Intern', 'Contractor'] },
+    { type: 'file', placeholder: 'Employee Image', key: 'image' }
 ];
