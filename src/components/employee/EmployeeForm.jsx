@@ -11,13 +11,14 @@ import { keyType, ROUTE_PATHS } from '../../constants/AppConstants';
 import { toBase64 } from '../../helpers/appHelper';
 
 const EmployeeForm = ({ closeModal }) => {
-  const [employee, setEmployee] = useState(
-    EMPLOYEE_FORM_FIELDS.reduce((acc, field) => {
-      acc[field.key] = '';
-      return acc;
-    }, {})
-  );
+  const initialState = EMPLOYEE_FORM_FIELDS.reduce((acc, field) => {
+    acc[field.key] = field.type === 'radio' || field.type === 'select'
+      ? field.options[0]
+      : '';
+    return acc;
+  }, {});
 
+  const [employee, setEmployee] = useState(initialState);
   const [image, setImage] = useState(null);
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(0);
@@ -110,8 +111,8 @@ const EmployeeForm = ({ closeModal }) => {
   return (
     <div className="p-6 bg-gray-800 rounded-lg shadow-lg">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold text-white">
-          Add Employee
+        <h2 className="text-2xl font-bold text-cyan-300">
+          New Employee
         </h2>
         <div className="w-1/2">
           <ProgressBar progress={progress} />
@@ -124,10 +125,8 @@ const EmployeeForm = ({ closeModal }) => {
             field={field}
             value={employee[field.key]}
             onChange={handleInputChange}
+            error={errors ? errors[field.key] : ''}
           />
-          {errors[field.key] && (
-            <p className="text-red-500 text-sm">{errors[field.key]}</p>
-          )}
         </div>
       ))}
 
