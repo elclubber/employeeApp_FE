@@ -41,7 +41,7 @@ function* addEmployeeSaga(action) {
     yield put(addEmployeeSuccess(newEmployee));
     yield put({ type: FETCH_EMPLOYEES_START });
   } catch (error) {
-    console.error('Failed to add employee:', error);
+    yield put(fetchEmployeesFailure(error.message));
   }
 }
 
