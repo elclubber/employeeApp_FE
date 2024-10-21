@@ -25,6 +25,10 @@
   }
 }
 
+input {
+  color-scheme: dark;
+}
+
 /* Custom scrollbar styles */
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
