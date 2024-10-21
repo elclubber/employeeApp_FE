@@ -9,3 +9,17 @@ export const ROUTE_PATHS = {
     EMPLOYEE_DETAILS: '/employee-details',
     EMPLOYEE_EDIT: '/employee-edit',
 }
+
+export const STEP = {
+    FIRST: 1,
+    SECOND: 2,
+    MIN_FIELDS_COUNT: 0,
+    MAX_FIELDS_COUNT: 6,
+};
+
+export const FIELD_TYPE = {
+    SELECT: 'select',
+    RADIO: 'radio',
+};
+
+export const PROGRESS_START = 0;

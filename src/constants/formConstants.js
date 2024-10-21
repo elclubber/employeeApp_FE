@@ -1,3 +1,4 @@
+import { formatSalary } from '../utils/formUtils';
 export const EMPLOYEE_FORM_FIELDS = [
   { type: 'text', placeholder: 'Name', key: 'name', required: true },
   { type: 'email', placeholder: 'Email', key: 'email', required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
@@ -16,4 +17,16 @@ export const EMPLOYEE_FORM_FIELDS = [
     options: ['Single', 'Married', 'Divorced', 'Widowed']
   },
   { type: 'file', placeholder: 'Profil Picture', key: 'image', required: false }
+];
+
+export const EMPLOYEE_FIELDS = [
+  { label: 'Email', key: 'email' },
+  { label: 'Position', key: 'position' },
+  { label: 'Age', key: 'age' },
+  { label: 'Phone', key: 'phone' },
+  { label: 'Department', key: 'department' },
+  { label: 'Joining Date', key: 'joiningDate' },
+  { label: 'Employee Type', key: 'employeeType' },
+  { label: 'Marital Status', key: 'maritalStatus' },
+  { label: 'Salary', key: 'salary', format: formatSalary },
 ];
