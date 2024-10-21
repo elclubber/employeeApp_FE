@@ -7,12 +7,12 @@ import FormField from '../form/FormField';
 import ProgressBar from '../form/ProgressBar';
 import { ADD_EMPLOYEE } from '../../constants/ActionTypesConstants';
 import { EMPLOYEE_FORM_FIELDS } from '../../constants/FormConstants';
-import { keyType, ROUTE_PATHS, STEP, FIELD_TYPE, PROGRESS_START } from '../../constants/AppConstants';
+import { keyType, ROUTE_PATHS, STEP, FIELD_TYPE, PROGRESS_START, SUCCESS_MESSAGE } from '../../constants/AppConstants';
 import { toBase64 } from '../../helpers/appHelper';
 import { validateField, validateFields } from '../../helpers/validationHelper';
 import { calculateProgress } from '../../utils/formUtils';
 
-const EmployeeForm = ({ closeModal }) => {
+const EmployeeForm = ({ closeModal, showSuccessModal }) => {
   const initialState = EMPLOYEE_FORM_FIELDS.reduce((acc, field) => {
     acc[field.key] = field.type === FIELD_TYPE.RADIO || field.type === FIELD_TYPE.SELECT
       ? field.options[0]
@@ -81,6 +81,7 @@ const EmployeeForm = ({ closeModal }) => {
       dispatch({ type: ADD_EMPLOYEE, payload: employeeData });
 
       closeModal();
+      showSuccessModal(SUCCESS_MESSAGE);
       navigate(ROUTE_PATHS.EMPLOYEE_LIST);
     }
   };
@@ -118,6 +119,7 @@ const EmployeeForm = ({ closeModal }) => {
 
 EmployeeForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
+  showSuccessModal: PropTypes.func
 };
 
 export default EmployeeForm;
