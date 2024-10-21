@@ -58,7 +58,6 @@ const EmployeeForm = ({ closeModal }) => {
     if (key === keyType.IMAGE) {
       setImage(e.target.files[0]);
     }
-
     setEmployee((prevState) => ({ ...prevState, [key]: value }));
     const field = EMPLOYEE_FORM_FIELDS.find((f) => f.key === key);
     const error = validateField(field, value);
@@ -74,6 +73,8 @@ const EmployeeForm = ({ closeModal }) => {
   };
 
   const handleBackStep = () => {
+    setImage(null);
+    setEmployee((prevState) => ({ ...prevState, image: '' }));
     setStep(1);
   };
 
