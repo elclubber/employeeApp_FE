@@ -19,7 +19,7 @@ const LoginForm = ({ credentials, onChange, onSubmit, error }) => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 space-y-6">
       <img src={logo} alt="Logo" className="h-24 mb-4" />
       <div className="w-full max-w-sm bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center text-white mb-6">Login</h2>
+        <h2 className="text-2xl font-bold text-center text-white mb-6">Login test</h2>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <input
           ref={usernameRef} // Focus input on mount
