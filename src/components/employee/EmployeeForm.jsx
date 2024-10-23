@@ -6,7 +6,7 @@ import ButtonGroup from '../form/ButtonGroup';
 import FormField from '../form/FormField';
 import ProgressBar from '../form/ProgressBar';
 import { ADD_EMPLOYEE } from '../../constants/ActionTypesConstants';
-import { EMPLOYEE_FORM_FIELDS } from '../../constants/formConstants';
+import { EMPLOYEE_FORM_FIELDS } from '../../constants/FormConstants';
 import { keyType, ROUTE_PATHS, STEP, FIELD_TYPE, PROGRESS_START, SUCCESS_MESSAGE } from '../../constants/AppConstants';
 import { toBase64 } from '../../helpers/appHelper';
 import { validateField, validateFields } from '../../helpers/validationHelper';

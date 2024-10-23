@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { EMPLOYEE_FIELDS } from '../../constants/formConstants';
+import { EMPLOYEE_FIELDS } from '../../constants/FormConstants';
 
 const EmployeeListComponent = ({ employees, onDelete }) => {
   if (!employees || employees.length === 0) {
