@@ -30,3 +30,5 @@ export const EMPLOYEE_FIELDS = [
     { label: 'Marital Status', key: 'maritalStatus' },
     { label: 'Salary', key: 'salary', format: formatSalary },
 ];
+
+export const test_deploy = 'to delete';
